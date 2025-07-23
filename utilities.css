@@ -1,0 +1,30 @@
+@media (prefers-reduced-motion:no-preference){
+  .fade-left {
+    opacity: 0;
+    transform: translateX(-48px); /* Slide from left */
+    transition: opacity .6s, transform .6s;
+  }
+  .fade-left.in {
+    opacity: 1;
+    transform: none;
+  }
+  .fade-right {
+    opacity: 0;
+    transform: translateX(48px); /* Slide from right */
+    transition: opacity .6s, transform .6s;
+  }
+  .fade-right.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hidden-until-scroll {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .7s;
+}
+.hidden-until-scroll.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
