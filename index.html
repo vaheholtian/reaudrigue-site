@@ -8,21 +8,26 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="hamburger" id="hamburger" aria-label="Open menu" tabindex="0">
-  <div></div><div></div><div></div>
-</div>
-<nav id="mobile-menu">
-  <a href="#hero">Home</a>
-  <a href="#services">Services</a>
-  <a href="#highlights">Highlights</a>
-  <a href="#testimonials">Testimonials</a>
-  <a href="#contact">Contact</a>
-</nav>
+<header class="site-header">
+  <div class="logo">Rodrigue Kazarian</div>
+  <nav class="main-nav">
+    <!-- "Home" link will be added/removed by JS -->
+    <a href="#services">Services</a>
+    <a href="#highlights">Highlights</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Book / Contact</a>
+  </nav>
+  <div class="hamburger" id="hamburger" aria-label="Open menu" tabindex="0">
+    <div></div><div></div><div></div>
+  </div>
+</header>
 <section id="hero">
   <div class="hero-inner fade-left">
-    <h1>Rodrigue Kazarian</h1>
+    <div class="hero-img-wrap">
+      <img src="riri.png" alt="Rodrigue Kazarian portrait" class="main-pic">
+      <h1 class="img-overlay-title">Rodrigue Kazarian</h1>
+    </div>
     <p class="subtitle">Live Sound Engineer - FOH • Monitors • RF Coordination • System Tech (Lebanon & MENA)</p>
-    <img src="riri.png" alt="Rodrigue Kazarian portrait" class="main-pic" style="width:140px; border-radius:50%; display:block; margin:18px auto 18px auto;">
     <div class="cta-row">
       <a href="#contact" class="button">Book a Date</a>
       <a href="#services" class="button">Services</a>
@@ -30,6 +35,7 @@
     <div class="strip">
       <span>800+ Shows</span><span>12 Yrs Experience</span><span>Dante Certified</span><span>Festival / Club / Corporate</span>
     </div>
+    
   </div>
   <div id="scroll-arrow" class="scroll-arrow">&#8595;</div>
 </section>

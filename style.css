@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 :root{
   --bg:#050312;
   --bg2:#16142b;
@@ -179,5 +182,117 @@ footer{padding:32px 18px;text-align:center;font-size:.8rem;color:var(--muted);}
 #mobile-menu a:focus {
   color: var(--accent); /* Bright purple accent on hover */
   text-shadow: none;   /* No neon on hover */
+}
+.hero-img-wrap {
+  position: relative;
+  width: 180px;
+  margin: 0 auto 18px auto;
+}
+.hero-img-wrap .main-pic {
+  width: 100%;
+  border-radius: 50%;
+  display: block;
+}
+.img-overlay-title {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--accent); /* Use accent variable */
+  font-size: clamp(2.2rem, 5vw, 3rem); /* Responsive size */
+  line-height: 1.1;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18); /* Subtle shadow */
+  letter-spacing: 0.02em;
+  font-family: inherit;
+}
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  background: var(--bg2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+}
+.main-nav {
+  display: flex;
+  gap: 32px;
+}
+.main-nav a {
+  color: var(--accent2);
+  font-size: 1.05rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+.main-nav a:hover,
+.main-nav a:focus {
+  color: var(--accent);
+  /* border-bottom: 2px solid var(--accent); */
+}
+.hamburger {
+  display: none;
+}
+@media (max-width: 700px) {
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: var(--bg2);
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 4px 24px #000a;
+    z-index: 99;
+  }
+  .main-nav.open {
+    display: flex;
+  }
+  .main-nav a {
+    padding: 18px 32px;
+    border-bottom: 1px solid #2224;
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.hidden-at-top {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.hidden-at-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-home {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.nav-home.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+#services, #highlights, #testimonials, #contact {
+  scroll-margin-top: 20px; /* Adjust to your header height */
 }
 

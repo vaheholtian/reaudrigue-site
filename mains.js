@@ -10,8 +10,30 @@ window.addEventListener('DOMContentLoaded', function() {
   const menu = document.getElementById('mobile-menu');
 
   let burgerShown = false;
+  const topLimit = 150;
+  const nav = document.querySelector('.main-nav');
+
+  function updateHomeLink() {
+    let homeLink = nav.querySelector('.nav-home');
+    if (window.scrollY > topLimit) {
+      if (!homeLink) {
+        homeLink = document.createElement('a');
+        homeLink.href = "#hero";
+        homeLink.className = "nav-home";
+        homeLink.textContent = "Home";
+        nav.insertBefore(homeLink, nav.firstChild);
+      }
+    } else {
+      if (homeLink) {
+        nav.removeChild(homeLink);
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+  }
 
   window.addEventListener('scroll', function() {
+    updateHomeLink();
+
     if (window.scrollY > 10) {
       reveal.classList.add('visible');
       arrow.classList.add('hide'); // Hide the arrow when content is revealed
@@ -32,11 +54,10 @@ window.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
     const services = document.getElementById('services');
     if (services) {
-      services.scrollIntoView({ behavior: 'smooth' });
-      if (!burgerShown) {
-        burger.classList.add('visible');
-        burgerShown = true;
-      }
+      const header = document.querySelector('.site-header');
+      const headerHeight = header.offsetHeight || 80;
+      const top = services.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   });
 
@@ -46,7 +67,11 @@ window.addEventListener('DOMContentLoaded', function() {
       const target = document.getElementById(targetId);
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Then adjust for header if needed:
+        const header = document.querySelector('.site-header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        window.scrollBy({ top: -headerHeight, behavior: 'instant' });
       }
       burger.classList.remove('active');
       menu.classList.remove('open');
@@ -73,4 +98,8 @@ window.addEventListener('DOMContentLoaded', function() {
     menu.classList.toggle('open');
     e.stopPropagation();
   });
+
+  document.getElementById('hamburger').onclick = function() {
+    document.querySelector('.main-nav').classList.toggle('open');
+  };
 });
