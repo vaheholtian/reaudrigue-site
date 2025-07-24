@@ -295,4 +295,9 @@ footer{padding:32px 18px;text-align:center;font-size:.8rem;color:var(--muted);}
 #services, #highlights, #testimonials, #contact {
   scroll-margin-top: 20px; /* Adjust to your header height */
 }
+#form-message.success {
+  color: var(--accent); /* Bright purple like h1 */
+  font-style: italic;
+  margin-top: 10px;
+}
 

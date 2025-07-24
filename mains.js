@@ -103,3 +103,29 @@ window.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.main-nav').classList.toggle('open');
   };
 });
+
+document.getElementById('contact-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  try {
+    const response = await fetch('https://formspree.io/f/xeozandp', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    const messageElement = document.getElementById('form-message');
+    if (response.ok) {
+      messageElement.innerHTML = "Message sent! Thank you for reaching out!";
+      messageElement.classList.add('success');
+      form.reset();
+    } else {
+      messageElement.innerHTML = "Oops! Something went wrong. Please try again.";
+      messageElement.classList.remove('success');
+    }
+  } catch (error) {
+    const messageElement = document.getElementById('form-message');
+    messageElement.innerHTML = "Network error. Please try again later.";
+    messageElement.classList.remove('success');
+  }
+});
