@@ -7,9 +7,8 @@ window.addEventListener('DOMContentLoaded', function() {
   const reveal = document.getElementById('reveal-on-scroll');
   const arrow = document.getElementById('scroll-arrow');
   const burger = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-
-  let burgerShown = false;
+  
+  burger.classList.add('visible');
   const topLimit = 150;
   const nav = document.querySelector('.main-nav');
 
@@ -36,15 +35,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
     if (window.scrollY > 10) {
       reveal.classList.add('visible');
-      arrow.classList.add('hide'); // Hide the arrow when content is revealed
-      if (!burgerShown) {
-        burger.classList.add('visible');
-        burgerShown = true;
-      }
+      arrow.classList.add('hide');
     } else {
       reveal.classList.remove('visible');
-      arrow.classList.remove('hide'); // Show the arrow again if scrolled to top
-      // Hamburger stays visible once shown (do not remove .visible from burger)
+      arrow.classList.remove('hide');
     }
   });
 
@@ -61,47 +55,22 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  menu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', function(e) {
-      const targetId = link.getAttribute('href').replace('#', '');
-      const target = document.getElementById(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Then adjust for header if needed:
-        const header = document.querySelector('.site-header');
-        const headerHeight = header ? header.offsetHeight : 0;
-        window.scrollBy({ top: -headerHeight, behavior: 'instant' });
-      }
-      burger.classList.remove('active');
-      menu.classList.remove('open');
-    });
+  burger.addEventListener('click', function(e) {
+    burger.classList.toggle('active');
+    nav.classList.toggle('open');
+    e.stopPropagation();
   });
 
   document.body.addEventListener('click', function(e) {
     if (
-      menu.classList.contains('open') &&
-      !menu.contains(e.target) &&
+      nav.classList.contains('open') &&
+      !nav.contains(e.target) &&
       !burger.contains(e.target)
     ) {
       burger.classList.remove('active');
-      menu.classList.remove('open');
+      nav.classList.remove('open');
     }
   });
-
-  menu.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
-
-  burger.addEventListener('click', function(e) {
-    burger.classList.toggle('active');
-    menu.classList.toggle('open');
-    e.stopPropagation();
-  });
-
-  document.getElementById('hamburger').onclick = function() {
-    document.querySelector('.main-nav').classList.toggle('open');
-  };
 });
 
 document.getElementById('contact-form').addEventListener('submit', async function (e) {
