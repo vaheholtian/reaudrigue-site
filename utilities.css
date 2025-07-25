@@ -2,7 +2,7 @@
   .fade-left {
     opacity: 0;
     transform: translateX(-48px); /* Slide from left */
-    transition: opacity .6s, transform .6s;
+    transition: opacity 0.6s, transform 0.6s;
   }
   .fade-left.in {
     opacity: 1;
@@ -16,6 +16,10 @@
   .fade-right.in {
     opacity: 1;
     transform: none;
+  }
+  .fade-left, .fade-right {
+    position: relative; /* Prevent layout shifts */
+    will-change: opacity, transform; /* Optimize for animations */
   }
 }
 .hidden-until-scroll {

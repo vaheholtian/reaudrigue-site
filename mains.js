@@ -1,14 +1,20 @@
 window.addEventListener('DOMContentLoaded', function() {
-  const observer = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('in');
-  }), { threshold: .15 });
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target); // Stop observing once triggered
+      }
+    });
+  }, { threshold: 0.15 });
+
   document.querySelectorAll('.fade, .fade-left, .fade-right').forEach(el => observer.observe(el));
 
   const reveal = document.getElementById('reveal-on-scroll');
   const arrow = document.getElementById('scroll-arrow');
   const burger = document.getElementById('hamburger');
   
-  burger.classList.add('visible');
+  burger.classList.add('visible'); // Ensure it's visible on page load
   const topLimit = 150;
   const nav = document.querySelector('.main-nav');
 
@@ -24,8 +30,8 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     } else {
       if (homeLink) {
-        nav.removeChild(homeLink);
-        window.scrollTo({ top, behavior: 'smooth' });
+        homeLink.style.opacity = 0; // Hide instead of removing
+        setTimeout(() => nav.removeChild(homeLink), 300); // Delay removal to avoid layout shift
       }
     }
   }
@@ -36,9 +42,11 @@ window.addEventListener('DOMContentLoaded', function() {
     if (window.scrollY > 10) {
       reveal.classList.add('visible');
       arrow.classList.add('hide');
+      burger.classList.add('visible'); // Ensure burger is visible on scroll
     } else {
       reveal.classList.remove('visible');
       arrow.classList.remove('hide');
+      burger.classList.add('visible'); // Keep burger visible
     }
   });
 
