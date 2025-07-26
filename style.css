@@ -30,13 +30,12 @@ p,li{max-width:720px}
   text-align: center;
   min-height: 100dvh; /* Dynamic viewport height */
   overflow: hidden; /* Prevent content from causing layout shifts */
-  margin: 0; /* Ensure no extra margins */
-  padding: 0; /* Ensure no extra padding */
+  padding: 0 var(--space-md); /* Add horizontal padding for proper centering */
   position: relative; /* Prevent layout shifts */
   scroll-margin-top: var(--header-height); /* Adjust for sticky header */
-  background: linear-gradient(160deg, var(--bg), var(--bg2));
 }
 #hero .hero-inner {
+  padding-top: 60px;
   max-width: 960px; /* Constrain content width */
   margin: 0 auto;
   overflow: hidden; /* Prevent overflow */
@@ -120,12 +119,14 @@ footer{padding:var(--space-lg) var(--space-md);text-align:center;font-size:.8rem
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px; /* Reduce gap between lines */
+  gap: 5px;
   cursor: pointer;
   position: fixed;
-  top: 16px; /* Adjust to ensure visibility */
-  right: 16px;
-  z-index: 100;
+  top: 16px;
+  right: 24px;
+  z-index: 300;
+  opacity: 1;
+  pointer-events: auto;
   transition: opacity 0.5s, filter 0.18s;
 }
 .hamburger div {
@@ -180,25 +181,38 @@ footer{padding:var(--space-lg) var(--space-md);text-align:center;font-size:.8rem
   font-family: inherit;
 }
 .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--space-md) var(--space-lg);
   background: var(--bg2);
-  position: sticky;
-  top: 0;
-  z-index: 100;
   box-shadow: 0 2px 6px #0004;
+  height: var(--header-height); /* Reserve header height */
+}
+
+/* Ensure main content is not hidden under fixed header */
+body > section,
+#hero {
+  margin-top: var(--header-height);
 }
 .logo {
   font-weight: bold;
   color: var(--accent);
   font-size: 1.2rem;
   letter-spacing: 0.02em;
+  text-decoration: none;
+  border-bottom: none;
 }
 .main-nav {
   display: flex;
   gap: var(--space-lg);
+  position: static; /* Desktop: normal flow */
+  padding-right: var(--space-md);
 }
 .main-nav a {
   color: var(--accent2);
@@ -212,16 +226,16 @@ footer{padding:var(--space-lg) var(--space-md);text-align:center;font-size:.8rem
 .main-nav a:hover,
 .main-nav a:focus {
   color: var(--accent);
-  /* border-bottom: 2px solid var(--accent); */
 }
 .hamburger {
   display: none;
+
 }
 @media (max-width: 700px) {
   .main-nav {
     display: none;
-    position: absolute;
-    top: 56px;
+    position: fixed; /* Mobile: overlay */
+    top: var(--header-height);
     left: 0;
     right: 0;
     background: var(--bg2);
@@ -238,19 +252,11 @@ footer{padding:var(--space-lg) var(--space-md);text-align:center;font-size:.8rem
     border-bottom: 1px solid #2224;
   }
   .hamburger {
-    display: flex; /* Ensure it is displayed */
-    opacity: 1; /* Make it visible */
-    pointer-events: auto; /* Allow interaction */
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
     transition: opacity 0.5s, filter 0.18s;
   }
-}
-.nav-home {
-  opacity: 1;
-  transition: opacity 0.3s;
-}
-.nav-home.hide {
-  opacity: 0;
-  pointer-events: none;
 }
 #services, #highlights, #testimonials, #contact {
   scroll-margin-top: 20px; /* Adjust to your header height */
