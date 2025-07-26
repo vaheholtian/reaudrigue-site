@@ -1,4 +1,20 @@
 window.addEventListener('DOMContentLoaded', function() {
+
+  const reveal = document.getElementById('reveal-on-scroll');
+  const arrow = document.getElementById('scroll-arrow');
+  const burger = document.getElementById('hamburger');
+  const nav = document.querySelector('.main-nav');
+
+  // Close menu after clicking a nav item (mobile)
+  nav.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (nav.classList.contains('open')) {
+        burger.classList.remove('active');
+        nav.classList.remove('open');
+      }
+    });
+  });
+
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -10,43 +26,14 @@ window.addEventListener('DOMContentLoaded', function() {
 
   document.querySelectorAll('.fade, .fade-left, .fade-right').forEach(el => observer.observe(el));
 
-  const reveal = document.getElementById('reveal-on-scroll');
-  const arrow = document.getElementById('scroll-arrow');
-  const burger = document.getElementById('hamburger');
-  
-  burger.classList.add('visible'); // Ensure it's visible on page load
-  const topLimit = 150;
-  const nav = document.querySelector('.main-nav');
-
-  function updateHomeLink() {
-    let homeLink = nav.querySelector('.nav-home');
-    if (window.scrollY > topLimit) {
-      if (!homeLink) {
-        homeLink = document.createElement('a');
-        homeLink.href = "#hero";
-        homeLink.className = "nav-home";
-        homeLink.textContent = "Home";
-        nav.insertBefore(homeLink, nav.firstChild);
-      }
-    } else {
-      if (homeLink) {
-        homeLink.style.opacity = 0; // Hide instead of removing
-        setTimeout(() => nav.removeChild(homeLink), 300); // Delay removal to avoid layout shift
-      }
-    }
-  }
 
   window.addEventListener('scroll', function() {
-    updateHomeLink();
-
     if (window.scrollY > 10) {
       reveal.classList.add('visible');
       arrow.classList.add('hide');
-      burger.classList.add('visible'); // Ensure burger is visible on scroll
     } else {
       reveal.classList.remove('visible');
       arrow.classList.remove('hide');
-      burger.classList.add('visible'); // Keep burger visible
     }
   });
 
