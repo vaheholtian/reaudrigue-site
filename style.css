@@ -79,7 +79,7 @@ button:hover{filter:brightness(1.1)}
 footer{padding:var(--space-lg) var(--space-md);text-align:center;font-size:.8rem;color:var(--muted);}
 .hidden-lang{position:absolute;left:-9999px;height:0;overflow:hidden}
 .scroll-arrow {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: var(--space-lg);
   transform: translateX(-50%);
